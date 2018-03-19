@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Http;
+using NLog;
 
 namespace Creol.Controllers
 {
@@ -55,7 +56,12 @@ namespace Creol.Controllers
             TwoLeggedApi oauth = new TwoLeggedApi();
             string grantType = "client_credentials";
 
-            Console.WriteLine("Task. FORGE_CLIENT_ID = " + FORGE_CLIENT_ID);
+            //Console.WriteLine("Task. FORGE_CLIENT_ID = " + FORGE_CLIENT_ID);
+
+            Logger logger = LogManager.GetCurrentClassLogger();
+            Console.WriteLine("AppHarbor background workers rock!");
+            logger.Info("TEST");
+
             if (FORGE_CLIENT_ID == "")
             {
                 FORGE_CLIENT_ID = GetAppSetting("FORGE_CLIENT_ID");
