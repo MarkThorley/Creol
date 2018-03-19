@@ -8,8 +8,8 @@ namespace Creol.Controllers
 {
     public class OAuthController : ApiController
     {
-        private static string FORGE_CLIENT_ID = Environment.GetEnvironmentVariable("FORGE_CLIENT_ID") ?? "your_client_id";
-        private static string FORGE_CLIENT_SECRET = Environment.GetEnvironmentVariable("FORGE_CLIENT_SECRET") ?? "your_client_secret";
+        private static string FORGE_CLIENT_ID = Environment.GetEnvironmentVariable("FORGE_CLIENT_ID");
+        private static string FORGE_CLIENT_SECRET = Environment.GetEnvironmentVariable("FORGE_CLIENT_SECRET");
 
         // As both internal & public tokens are used for all visitors
         // we don't need to request a new token on every request, so let's
@@ -54,11 +54,16 @@ namespace Creol.Controllers
         {
             TwoLeggedApi oauth = new TwoLeggedApi();
             string grantType = "client_credentials";
+
+            if (FORGE_CLIENT_ID == "")
+            {
+                FORGE_CLIENT_ID = GetAppSetting("FORGE_CLIENT_ID");
+                FORGE_CLIENT_SECRET = GetAppSetting("FORGE_CLIENT_SECRET");
+            }
+            
             dynamic bearer = await oauth.AuthenticateAsync(
               FORGE_CLIENT_ID,
               FORGE_CLIENT_SECRET,
-              //GetAppSetting("FORGE_CLIENT_ID"),
-              //GetAppSetting("FORGE_CLIENT_SECRET"),
               grantType,
               scopes);
             return bearer;
