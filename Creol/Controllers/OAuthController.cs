@@ -55,10 +55,12 @@ namespace Creol.Controllers
             TwoLeggedApi oauth = new TwoLeggedApi();
             string grantType = "client_credentials";
 
+            Console.WriteLine("Task. FORGE_CLIENT_ID = " + FORGE_CLIENT_ID);
             if (FORGE_CLIENT_ID == "")
             {
                 FORGE_CLIENT_ID = GetAppSetting("FORGE_CLIENT_ID");
                 FORGE_CLIENT_SECRET = GetAppSetting("FORGE_CLIENT_SECRET");
+                Console.WriteLine("Task. New FORGE_CLIENT_ID = " + FORGE_CLIENT_ID);
             }
             
             dynamic bearer = await oauth.AuthenticateAsync(
