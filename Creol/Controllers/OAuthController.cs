@@ -64,14 +64,8 @@ namespace Creol.Controllers
             return bearer;
         }
 
-
-        /*oauth2TwoLegged =new TwoLeggedApi();
-        twoLeggedCredentials =oauth2TwoLegged.Authenticate (FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, oAuthConstants.CLIENT_CREDENTIALS, scopes) ;
-			bucketsApi.Configuration.AccessToken =twoLeggedCredentials.access_token ;
-			objectsApi.Configuration.AccessToken =twoLeggedCredentials.access_token ;
-			derivativesApi.Configuration.AccessToken =twoLeggedCredentials.access_token ;*/
-
-        /*/// <summary>
+        /*
+        /// <summary>
         /// Reads appsettings from web.config
         /// </summary>
         private static string GetAppSetting(string settingKey)
