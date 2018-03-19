@@ -8,6 +8,9 @@ namespace Creol.Controllers
 {
     public class OAuthController : ApiController
     {
+        private static string FORGE_CLIENT_ID = Environment.GetEnvironmentVariable("FORGE_CLIENT_ID") ?? "your_client_id";
+        private static string FORGE_CLIENT_SECRET = Environment.GetEnvironmentVariable("FORGE_CLIENT_SECRET") ?? "your_client_secret";
+
         // As both internal & public tokens are used for all visitors
         // we don't need to request a new token on every request, so let's
         // cache them using static variables. Note we still need to refresh
@@ -52,19 +55,28 @@ namespace Creol.Controllers
             TwoLeggedApi oauth = new TwoLeggedApi();
             string grantType = "client_credentials";
             dynamic bearer = await oauth.AuthenticateAsync(
-              GetAppSetting("FORGE_CLIENT_ID"),
-              GetAppSetting("FORGE_CLIENT_SECRET"),
+              FORGE_CLIENT_ID,
+              FORGE_CLIENT_SECRET,
+              //GetAppSetting("FORGE_CLIENT_ID"),
+              //GetAppSetting("FORGE_CLIENT_SECRET"),
               grantType,
               scopes);
             return bearer;
         }
 
-        /// <summary>
+
+        /*oauth2TwoLegged =new TwoLeggedApi();
+        twoLeggedCredentials =oauth2TwoLegged.Authenticate (FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, oAuthConstants.CLIENT_CREDENTIALS, scopes) ;
+			bucketsApi.Configuration.AccessToken =twoLeggedCredentials.access_token ;
+			objectsApi.Configuration.AccessToken =twoLeggedCredentials.access_token ;
+			derivativesApi.Configuration.AccessToken =twoLeggedCredentials.access_token ;*/
+
+        /*/// <summary>
         /// Reads appsettings from web.config
         /// </summary>
         private static string GetAppSetting(string settingKey)
         {
             return WebConfigurationManager.AppSettings[settingKey];
-        }
+        }*/
     }
 }
