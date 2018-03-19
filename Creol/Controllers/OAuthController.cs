@@ -9,8 +9,8 @@ namespace Creol.Controllers
 {
     public class OAuthController : ApiController
     {
-        private static string FORGE_CLIENT_ID = Environment.GetEnvironmentVariable("FORGE_CLIENT_ID");
-        private static string FORGE_CLIENT_SECRET = Environment.GetEnvironmentVariable("FORGE_CLIENT_SECRET");
+        private static string FORGE_CLIENT_ID = ""; // Environment.GetEnvironmentVariable("FORGE_CLIENT_ID") ?? "";
+        private static string FORGE_CLIENT_SECRET = ""; // Environment.GetEnvironmentVariable("FORGE_CLIENT_SECRET") ?? "";
 
         // As both internal & public tokens are used for all visitors
         // we don't need to request a new token on every request, so let's
