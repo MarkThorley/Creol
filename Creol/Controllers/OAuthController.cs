@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Http;
+using System.Diagnostics;
 using NLog;
 
 namespace Creol.Controllers
@@ -58,9 +59,10 @@ namespace Creol.Controllers
 
             //Console.WriteLine("Task. FORGE_CLIENT_ID = " + FORGE_CLIENT_ID);
 
-            Logger logger = LogManager.GetCurrentClassLogger();
+            //Logger logger = LogManager.GetCurrentClassLogger();
             Console.WriteLine("AppHarbor background workers rock!");
-            logger.Info("TEST");
+            Trace.TraceError("anything");
+            //logger.Info("TEST");
 
             if (FORGE_CLIENT_ID == "")
             {
