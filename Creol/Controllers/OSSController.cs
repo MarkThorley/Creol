@@ -10,6 +10,8 @@ namespace Creol.Controllers
 {
     public class OSSController : ApiController
     {
+        string clientId = OAuthController.GetAppSetting("FORGE_CLIENT_ID").ToLower();
+
         /// <summary>
         /// Return list of buckets (id=#) or list of objects (id=bucketKey)
         /// </summary>
@@ -77,7 +79,7 @@ namespace Creol.Controllers
             BucketsApi buckets = new BucketsApi();
             dynamic token = await OAuthController.GetInternalAsync();
             buckets.Configuration.AccessToken = token.access_token;
-            PostBucketsPayload bucketPayload = new PostBucketsPayload(bucket.bucketKey, null,
+            PostBucketsPayload bucketPayload = new PostBucketsPayload(bucket.bucketKey.ToLower() + "-" + clientId, null,
               PostBucketsPayload.PolicyKeyEnum.Transient);
             return await buckets.CreateBucketAsync(bucketPayload, "US");
         }
@@ -141,5 +143,6 @@ namespace Creol.Controllers
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+
     }
 }
