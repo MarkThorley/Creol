@@ -39,7 +39,7 @@ namespace Creol.Controllers
         {
             if (InternalToken == null || InternalToken.ExpiresAt < DateTime.UtcNow)
             {
-                InternalToken = await Get2LeggedTokenAsync(new Scope[] { Scope.BucketCreate, Scope.BucketRead, Scope.DataRead, Scope.DataCreate });
+                InternalToken = await Get2LeggedTokenAsync(new Scope[] { Scope.BucketCreate, Scope.BucketRead, Scope.BucketDelete, Scope.DataWrite, Scope.DataRead, Scope.DataCreate, Scope.BucketDelete, Scope.BucketUpdate });
                 InternalToken.ExpiresAt = DateTime.UtcNow.AddSeconds(InternalToken.expires_in);
             }
 
@@ -54,6 +54,7 @@ namespace Creol.Controllers
             TwoLeggedApi oauth = new TwoLeggedApi();
             string grantType = "client_credentials";
 
+            //Example for finding errors in the appharbour log session
             Trace.TraceError("anything");
             
             dynamic bearer = await oauth.AuthenticateAsync(
@@ -64,7 +65,6 @@ namespace Creol.Controllers
             return bearer;
         }
 
-        
         /// <summary>
         /// Reads appsettings from web.config
         /// </summary>
