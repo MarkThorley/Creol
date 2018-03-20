@@ -123,6 +123,7 @@
     <Content Include="index.html" />
     <Content Include="js\ForgeTree.js" />
     <Content Include="js\ForgeViewer.js" />
+    <Content Include="js\my-awesome-extension.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
