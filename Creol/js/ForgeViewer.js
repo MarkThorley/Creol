@@ -68,7 +68,7 @@ function onItemLoadSuccess(viewer, item) {
 
                     const color = new THREE.Vector4(255 / 255, 0, 0, 1);
                     for (let i = 0; i < selSet.length; i++) {
-                        viewerApp.myCurrentViewersetThemingColor(selSet[i], color);
+                        viewerApp.myCurrentViewer.setThemingColor(selSet[i], color);
                     }
                 }
             });
