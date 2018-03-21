@@ -8,11 +8,8 @@ function launchViewer(urn) {
     var documentId = 'urn:' + urn;
     Autodesk.Viewing.Initializer(options, function onInitialized() {
         viewerApp = new Autodesk.Viewing.ViewingApplication('forgeViewer');
-        //viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D);
-        //var config3d = { extensions: ['MyAwesomeExtension'] };
-        //var config3d = { extensions: ["Autodesk.Viewing.ZoomWindow"] };
         var config = {
-            extensions: ["Autodesk.InViewerSearch"],
+            extensions: ["Autodesk.InViewerSearch", "Autodesk.Viewing.ZoomWindow", "MyAwesomeExtension"],
             inViewerSearchConfig : {
                 uiEnabled: true,
                 clientId: "adsk.forge.default",
@@ -28,6 +25,7 @@ function launchViewer(urn) {
                     pageSize: 20
                 }
             }
+
         };
         viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D, config);
         viewerApp.loadDocument(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
