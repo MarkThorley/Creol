@@ -39,7 +39,6 @@ function onDocumentLoadSuccess(doc) {
     // We could still make use of Document.getSubItemsWithProperties()
     // However, when using a ViewingApplication, we have access to the **bubble** attribute,
     // which references the root node of a graph that wraps each object from the Manifest JSON.
-    console.log("test");
     var viewables = viewerApp.bubble.search({ 'type': 'geometry' });
     console.log(viewables);
     if (viewables.length === 0) {
@@ -59,7 +58,7 @@ function onItemLoadSuccess(viewer, item) {
 
     //Add menu buttons
     viewer.registerContextMenuCallback('MyExtensionName', function (menu, status) {
-        console.log(menu, status);
+        //console.log(menu, status);
         if (status.hasSelected) {
             menu.push({
                 title: 'Override color of selected element',
@@ -69,7 +68,7 @@ function onItemLoadSuccess(viewer, item) {
 
                     const color = new THREE.Vector4(255 / 255, 0, 0, 1);
                     for (let i = 0; i < selSet.length; i++) {
-                        viewerApp.myCurrentViewer.setThemingColor(selSet[i], color);
+                        viewerApp.myCurrentViewersetThemingColor(selSet[i], color);
                     }
                 }
             });
@@ -126,7 +125,7 @@ function getSubset(dbIds, name, value, callback) {
 }
 
 function onPropertyClick(property, event) {
-    console.log(property.name + " = " + property.value)
+    //console.log(property.name + " = " + property.value)
     viewerApp.myCurrentViewer.search('"' + property.value + '"', function (dbIds) {
         const color = new THREE.Vector4( 255 / 255, 0, 0, 1 );
         getSubset(dbIds, property.name, property.value, function (dbIds) {
