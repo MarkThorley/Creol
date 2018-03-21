@@ -1,5 +1,7 @@
 ﻿var viewerApp;
 
+Autodesk.Viewing.UI.PropertyPanel.prototype.onPropertyClick = onPropertyClick
+
 function launchViewer(urn) {
     var options = {
         env: 'AutodeskProduction',
@@ -66,4 +68,38 @@ function getForgeToken(callback) {
             callback(res.access_token, res.expires_in)
         }
     });
+}
+
+function getSubset(dbIds, name, value, callback) {
+    console.log("getSubset, dbIds.length before = " + dbIds.length)
+    viewerApp.myCurrentViewer.model.getBulkProperties(dbIds, {
+        propFilter: [name],
+        ignoreHidden: true
+    }, function (data) {
+        var newDbIds = []
+        for (var key in data) {
+            var item = data[key]
+            if (item.properties[0].displayValue === value) {
+                newDbIds.push(item.dbId)
+            }
+        }
+        console.log("getSubset, dbIds.length after = " + newDbIds.length)
+        callback(newDbIds)
+    }, function (error) { })
+}
+
+function onPropertyClick(property, event) {
+    console.log(property.name + " = " + property.value)
+    viewerApp.myCurrentViewer.search('"' + property.value + '"', function (dbIds) {
+        //console.log(dbIds.length);
+        const color = new THREE.Vector4( 255 / 255, 0, 0, 1 );
+        getSubset(dbIds, property.name, property.value, function (dbIds) {
+            //viewerApp.myCurrentViewer.isolate(dbIds)
+            for (let i = 0; i < dbIds.length; i++) {
+                viewerApp.myCurrentViewer.isolate(dbIds[i])
+                viewerApp.myCurrentViewer.setThemingColor(dbIds[i], color)
+            }
+            //viewerApp.myCurrentViewer.setThemingColor(dbIds, color)
+        })
+    }, function (error) { }, [property.attributeName])
 }
