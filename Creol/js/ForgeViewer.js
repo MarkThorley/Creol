@@ -39,12 +39,13 @@ function onDocumentLoadSuccess(doc) {
     // We could still make use of Document.getSubItemsWithProperties()
     // However, when using a ViewingApplication, we have access to the **bubble** attribute,
     // which references the root node of a graph that wraps each object from the Manifest JSON.
+    console.log("test");
     var viewables = viewerApp.bubble.search({ 'type': 'geometry' });
+    console.log(viewables);
     if (viewables.length === 0) {
         console.error('Document contains no viewables.');
         return;
     }
-
     // Choose any of the avialble viewables
     viewerApp.selectItem(viewables[0].data, onItemLoadSuccess, onItemLoadFail);
 }
@@ -55,6 +56,42 @@ function onDocumentLoadFailure(viewerErrorCode) {
 
 function onItemLoadSuccess(viewer, item) {
     // item loaded, any custom action?
+
+    //Add menu buttons
+    viewer.registerContextMenuCallback('MyExtensionName', function (menu, status) {
+        console.log(menu, status);
+        if (status.hasSelected) {
+            menu.push({
+                title: 'Override color of selected element',
+                target: function () {
+                    const selSet = viewerApp.myCurrentViewer.getSelection();
+                    viewerApp.myCurrentViewer.clearSelection();
+
+                    const color = new THREE.Vector4(255 / 255, 0, 0, 1);
+                    for (let i = 0; i < selSet.length; i++) {
+                        viewerApp.myCurrentViewer.setThemingColor(selSet[i], color);
+                    }
+                }
+            });
+        } else {
+            menu.push({
+                title: 'Reset colors',
+                target: function () {
+                    viewerApp.myCurrentViewer.clearThemingColors();
+                    }
+            },
+            {
+                title: 'Reset all display',
+                target: function () {
+                    viewerApp.myCurrentViewer.clearThemingColors();
+                    viewerApp.myCurrentViewer.showAll();
+                }
+            }
+            );
+        }
+    });
+    //change direction of the zoom so its normal
+    viewerApp.myCurrentViewer.setReverseZoomDirection(true);
 }
 
 function onItemLoadFail(errorCode) {
@@ -91,15 +128,14 @@ function getSubset(dbIds, name, value, callback) {
 function onPropertyClick(property, event) {
     console.log(property.name + " = " + property.value)
     viewerApp.myCurrentViewer.search('"' + property.value + '"', function (dbIds) {
-        //console.log(dbIds.length);
         const color = new THREE.Vector4( 255 / 255, 0, 0, 1 );
         getSubset(dbIds, property.name, property.value, function (dbIds) {
-            //viewerApp.myCurrentViewer.isolate(dbIds)
             for (let i = 0; i < dbIds.length; i++) {
-                viewerApp.myCurrentViewer.isolate(dbIds[i])
                 viewerApp.myCurrentViewer.setThemingColor(dbIds[i], color)
-            }
-            //viewerApp.myCurrentViewer.setThemingColor(dbIds, color)
+            };
+        getSubset(dbIds, property.name, property.value, function (dbIds) {
+                viewerApp.myCurrentViewer.isolate(dbIds)
+            });
         })
     }, function (error) { }, [property.attributeName])
 }
