@@ -121,6 +121,7 @@
     <Content Include="css\main.css" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="js\EventsTutorial.js" />
     <Content Include="js\ForgeTree.js" />
     <Content Include="js\ForgeViewer.js" />
     <Content Include="js\my-awesome-extension.js" />

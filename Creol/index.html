@@ -14,6 +14,7 @@
     <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/three.min.js"></script>
     <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=v4.0"></script>
     <script src="js/my-awesome-extension.js"></script>
+    <script src="js/EventsTutorial.js"></script>
     <!-- this project files -->
     <link href="css/main.css" rel="stylesheet" />
     <script src="js/ForgeTree.js"></script>
@@ -53,9 +54,30 @@
             </div>
             <div class="col-sm-8 fill">
                 <div id="forgeViewer"></div>
+                <div class="my-custom-ui">
+                    <div>Count: <span id="MySelectionValue">0</span></div>
+                    <div>
+                        <style>
+                            .my-custom-ui {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                z-index: 5;
+                                margin: .3em;
+                                padding: .3em;
+                                font-size: 2em;
+                                font-family: sans-serif;
+                                background-color: rgba(255, 255, 255, 0.85);
+                                border-radius: 8px;
+                            }
+
+                                .my-custom-ui span {
+                                    color: red;
+                                }
+                        </style>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
     <form id="uploadFile" method='post' enctype="multipart/form-data">
         <input id="hiddenUploadField" type="file" name="theFile" style="visibility:hidden" />
     </form>
