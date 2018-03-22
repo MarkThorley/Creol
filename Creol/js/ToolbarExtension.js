@@ -41,6 +41,11 @@ ToolbarExtension.prototype.createUI = function () {
         var allDbIds = Object.keys(instanceTree.nodeAccess.dbIdToIndex);
         console.log(allDbIds);
         download('test.json', allDbIds);
+
+        //for (var i = 0; i < allDbIds.length; i++) {
+        //console.log(viewer.getProperties(allDbIds[0]))
+        //viewer.model.getProperties([allDbIds[0]], function (props) { console.log(props) } )
+        //console.log(viewer.getProperties([allDbIds[0]]))
         console.log("true");
 
     };
