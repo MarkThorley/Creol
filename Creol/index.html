@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Autodesk Forge Tutorial</title>
+    <title>Creol</title>
     <meta charset="utf-8" />
     <!-- Common packages: jQuery, Bootstrap, jsTree -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,6 +15,7 @@
     <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=v4.0"></script>
     <script src="js/my-awesome-extension.js"></script>
     <script src="js/EventsTutorial.js"></script>
+    <script src="js/ToolbarExtension.js"></script>
     <!-- this project files -->
     <link href="css/main.css" rel="stylesheet" />
     <script src="js/ForgeTree.js"></script>
@@ -54,6 +55,11 @@
             </div>
             <div class="col-sm-8 fill">
                 <div id="forgeViewer"></div>
+                <style>
+                    .my-export-data-button {
+                        background: blue;
+                    }
+                </style>
                 <div class="my-custom-ui">
                     <div>Count: <span id="MySelectionValue">0</span></div>
                     <div>
@@ -70,7 +76,6 @@
                                 background-color: rgba(255, 255, 255, 0.85);
                                 border-radius: 8px;
                             }
-
                                 .my-custom-ui span {
                                     color: red;
                                 }

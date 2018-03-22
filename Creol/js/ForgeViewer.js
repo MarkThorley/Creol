@@ -11,7 +11,7 @@ function launchViewer(urn) {
     Autodesk.Viewing.Initializer(options, function onInitialized() {
         viewerApp = new Autodesk.Viewing.ViewingApplication('forgeViewer');
         var config = {
-            extensions: ["Autodesk.InViewerSearch", "Autodesk.Viewing.ZoomWindow", "MyAwesomeExtension", "EventsTutorial"],
+            extensions: ["Autodesk.InViewerSearch", "Autodesk.Viewing.ZoomWindow", "MyAwesomeExtension", "EventsTutorial", "ToolbarExtension"],
             inViewerSearchConfig : {
                 uiEnabled: true,
                 clientId: "adsk.forge.default",
