@@ -39,17 +39,36 @@ ToolbarExtension.prototype.createUI = function () {
     button1.onClick = function (e) {
         var instanceTree = viewer.model.getData().instanceTree;
         var allDbIds = Object.keys(instanceTree.nodeAccess.dbIdToIndex);
-        console.log(allDbIds);
-        download('test.json', allDbIds);
+        var idInts = allDbIds.map(Number);
 
-        //for (var i = 0; i < allDbIds.length; i++) {
-        //console.log(viewer.getProperties(allDbIds[0]))
-        //viewer.model.getProperties([allDbIds[0]], function (props) { console.log(props) } )
-        //console.log(viewer.getProperties([allDbIds[0]]))
-        console.log("true");
+        var arr = []
+        viewerApp.myCurrentViewer.model.getBulkProperties(idInts, ["creolChannel"], function (e) {
+            for (var i = 0; i < e.length; i++) {
+                //console.log(e[i]);
+                arr.push(e[i].dbId)
+            }
+            //console.log(arr);
+            var props = []
+            for (var i = 0; i < arr.length; i++) {
+                viewerApp.myCurrentViewer.getProperties(arr[i], function (e) {
+                    props.push(e)
+                });
+            }
+            console.log(props);
+            download('test.json', idInts);
+        })
 
-    };
+        var creolValues = []
+        viewerApp.myCurrentViewer.model.getBulkProperties(idInts, ["creolChannel","creolZone"], function (e) {
+            for (var i = 0; i < e.length; i++) {
+                //console.log(e[i]);
+                creolValues.push(e[i])
+            }
+            console.log(creolValues);
+        })
+    }
 
+ 
     // Icon 1
     var className = 'glyphicon-cloud-upload';
     button1.icon.className = className;
